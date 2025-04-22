@@ -1,2 +1,2 @@
 # News-API
-News Of US based on [https://newsapi.org/ ](https://gnews.io/)
+News Of US Based on Real API
