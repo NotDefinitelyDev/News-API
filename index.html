@@ -17,8 +17,8 @@
       <div></div><div></div><div></div><div></div><div></div>
       </div></div>
   </div>
-    <h1>Breaking News</h1>
 
+    <h1>Breaking News</h1>
     <ul id="news-list">
     </ul>
 
@@ -29,7 +29,7 @@
         // News Request
         function newsReq() {
             showLoader(true)
-            fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=82cccd6583e6498f800703248a22fc83')
+            fetch('https://gnews.io/api/v4/search?q=example&lang=en&country=us&max=10&apikey=5592097f8f5694f85cdfaf479cc06a09')
             .then((res)=> res.json())
             .then((data)=> {
                 showLoader(false)
@@ -48,7 +48,7 @@
                     <div class="aut"> <span>Author:</span>  ${article.author || "Unknown"} </div>
                     <div class="date"> Date: ${new Date(article.publishedAt).toDateString()} </div>
                 </div>
-                    <img src="${article.urlToImage}" alt="${article.title}">
+                    <img src="${article.image}" alt="${article.title}">
                     <a href="${article.url}" target="_blank">${article.title}</a>
                     <p class="des">${article.description || "No description for this article"} </p>
                     <div class="source">
