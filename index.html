@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="newsIcon.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>News</title>
+
+</head>
+<body>
+    <div id="loder" style="position: fixed; bottom: 0; top: 0; right: 0; left: 0; margin: auto auto; display: flex; justify-content:
+    center; align-items: center; z-index: 999999; height: 100px; width: 200px; background-color: rgba(128, 128, 128, 0.295); border-radius: 10px;">
+    <div class="loadingio-spinner-ellipsis-nq4q5u6dq7r"><div class="ldio-x2uulkbinbj">
+      <div></div><div></div><div></div><div></div><div></div>
+      </div></div>
+  </div>
+    <h1>Breaking News</h1>
+
+    <ul id="news-list">
+    </ul>
+
+</body>
+
+    <script>
+        
+        // News Request
+        function newsReq() {
+            showLoader(true)
+            fetch('https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=82cccd6583e6498f800703248a22fc83')
+            .then((res)=> res.json())
+            .then((data)=> {
+                showLoader(false)
+                displayNews(data.articles)
+            })
+        }
+
+        // Dispaly News
+        function displayNews(articles) {
+            let newsList = document.getElementById("news-list")
+            newsList.innerHTML = ""
+            articles.forEach((article) => {
+                let listItem = document.createElement("li")
+                listItem.innerHTML = `
+                <div class="header"> 
+                    <div class="aut"> <span>Author:</span>  ${article.author || "Unknown"} </div>
+                    <div class="date"> Date: ${new Date(article.publishedAt).toDateString()} </div>
+                </div>
+                    <img src="${article.urlToImage}" alt="${article.title}">
+                    <a href="${article.url}" target="_blank">${article.title}</a>
+                    <p class="des">${article.description || "No description for this article"} </p>
+                    <div class="source">
+                        Source: ${article.source.name}
+                    </div>
+                `
+                newsList.append(listItem)
+            })
+        }
+
+        newsReq()
+
+        function showLoader(show = true) {
+            if (show) {
+                document.getElementById("loder").style.visibility = "visible"
+            } else {
+                document.getElementById("loder").style.visibility = "hidden"
+            }
+        }
+
+
+    </script>
+
+</html>
